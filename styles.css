@@ -1,0 +1,183 @@
+:root {
+    --petal:#FFD54F;
+    --center:#FFB300;
+    --bg:#0b0c1a; /* fondo oscuro para estrellas */
+  }
+  
+  html,body {
+    height:100%;
+    margin:0;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  }
+  body {
+    background:linear-gradient(180deg,var(--bg),#1b2735);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:center;
+    padding:20px;
+    overflow:hidden;
+  }
+  
+  /* Estrellas */
+  body::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 70% 80%, #fff, transparent),
+      radial-gradient(2px 2px at 50% 60%, #fff, transparent),
+      radial-gradient(1px 1px at 90% 20%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 10% 80%, #fff, transparent);
+    background-size: cover;
+    animation: twinkle 5s infinite alternate;
+    z-index:0;
+  }
+  
+  @keyframes twinkle {
+    from {opacity:0.6;}
+    to {opacity:1;}
+  }
+  
+  h1 {margin:0;font-size:1.4rem;color:white;z-index:1}
+  
+  .controls {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    z-index:1;
+  }
+  button {
+    background:#0b74de;color:white;
+    border:0;padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(11,116,222,.18);
+  }
+  button.secondary {
+    background:transparent;color:#0b74de;border:2px solid #0b74de;
+  }
+  
+  .stage {
+    width:100%;
+    max-width:1100px;
+    height:520px;
+    border-radius:12px;
+    background:rgba(255,255,255,.15);
+    box-shadow:0 10px 30px rgba(2,6,23,.3);
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.1);
+    z-index:1;
+  }
+  
+  /* Flor */
+  .flower {
+    position:absolute;
+    display:inline-block;
+    width:80px;
+    height:80px;
+    transform-origin:center center;
+    cursor:pointer;
+    user-select:none;
+    transition:transform .25s ease, filter .2s ease, box-shadow .2s ease;
+    animation:float 6s ease-in-out infinite, spin 20s linear infinite;
+    
+  }
+  .flower:hover {
+    transform: scale(1.2) rotate(-6deg);
+    filter: drop-shadow(0 6px 18px rgba(255,255,0,0.6));
+    box-shadow: 0 0 20px 5px rgba(255,215,0,0.5);
+  }
+  .petal {
+    --w:40px;--h:60px;
+    position:absolute;left:50%;top:50%;
+    width:var(--w);height:var(--h);
+    border-radius:50% 50% 40% 40%;
+    background:var(--petal);
+    transform-origin:50% 90%;
+    box-shadow:inset -6px -10px rgba(255,255,255,.15), 0 6px 12px rgba(0,0,0,.06);
+  }
+  .petal.p1{transform:translate(-50%,-62%) rotate(0deg)}
+  .petal.p2{transform:translate(-50%,-62%) rotate(60deg)}
+  .petal.p3{transform:translate(-50%,-62%) rotate(120deg)}
+  .petal.p4{transform:translate(-50%,-62%) rotate(180deg)}
+  .petal.p5{transform:translate(-50%,-62%) rotate(240deg)}
+  .petal.p6{transform:translate(-50%,-62%) rotate(300deg)}
+  
+  .center {
+    position:absolute;
+    left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--center);
+    box-shadow:inset -4px -6px rgba(255,255,255,.12), 0 6px 12px rgba(0,0,0,.08);
+  }
+  
+  @keyframes float {
+    0%{transform:translateY(0) rotate(0deg)}
+    50%{transform:translateY(-8px) rotate(2deg)}
+    100%{transform:translateY(0) rotate(0deg)}
+  }
+  
+  .small{width:56px;height:56px}
+  .small .petal{--w:28px;--h:44px}
+  .small .center{width:22px;height:22px}
+  
+  .empty {
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:1rem;
+  }
+  
+  .legend {font-size:.9rem;color:#ddd;align-self:flex-start}
+  
+  /* Mensaje romántico */
+  .love-message {
+    margin-top:20px;
+    font-size:1.4rem;
+    font-weight:bold;
+    color:#FFD54F;
+    text-shadow:0 0 12px rgba(255,255,0,.6);
+    white-space:pre;
+    z-index:2;
+  }
+  
+  /* Tallo de la flor */
+.stem {
+    position: absolute;
+    width: 4px;
+    height: 50px;
+    background: #4caf50;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(30px);
+    border-radius: 2px;
+    z-index: -1; /* Para que quede detrás de los pétalos */
+  }
+
+  .falling-petal {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    background: var(--petal);
+    border-radius: 50% 50% 40% 40%;
+    opacity: 0.8;
+    pointer-events: none;
+    animation:fall 6s linear infinite;
+  }
+  
+  @keyframes fall {
+    0% {transform: translateY(-50px) rotate(0deg);}
+    100% {transform: translateY(600px) rotate(360deg);}
+    0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+  }
+
+  #rainbowText {
+    transition: color 0.5s ease;
+    animation: bounce 1s infinite;
+
+  }
